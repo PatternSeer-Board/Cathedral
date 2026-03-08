@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cathedral</title>
+<meta name="description" content="Pattern recognition applied to money, technology, power, and the human operating system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #0a0a12;
+  --text: #e8e0d0;
+  --gold: #C9A84C;
+  --gold-dim: rgba(201, 168, 76, 0.3);
+  --text-muted: rgba(232, 224, 208, 0.5);
+  --surface: rgba(232, 224, 208, 0.04);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.4s, backdrop-filter 0.4s;
+}
+
+nav.scrolled {
+  background: rgba(10, 10, 18, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+nav .logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+nav ul li a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Crimson Pro', serif;
+  font-weight: 400;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover { color: var(--gold); }
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--gold);
+  transition: 0.3s;
+}
+
+/* Sections */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+}
+
+.hero-line {
+  width: 1px;
+  height: 0;
+  background: var(--gold);
+  margin-bottom: 2rem;
+  animation: lineGrow 1.5s ease forwards 0.3s;
+}
+
+@keyframes lineGrow {
+  to { height: 80px; }
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.8s;
+}
+
+.hero p {
+  max-width: 600px;
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  font-style: italic;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 1.2s;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Signal quote */
+.signal-quote {
+  text-align: center;
+  padding: 5rem 2rem;
+  border-top: 1px solid var(--gold-dim);
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.signal-quote blockquote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-style: italic;
+  color: var(--text);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Foundations */
+.foundations { max-width: 1300px; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--gold);
+  margin-bottom: 0.8rem;
+}
+
+.section-header p {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.thinker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.thinker-card {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  cursor: default;
+}
+
+.thinker-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(0.7);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.thinker-card:hover img {
+  filter: grayscale(0%) brightness(0.8) sepia(20%) saturate(1.2);
+  transform: scale(1.05);
+}
+
+.thinker-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.2rem 1.2rem;
+  background: linear-gradient(transparent, rgba(10, 10, 18, 0.95));
+}
+
+.thinker-info h3 {
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+
+.thinker-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Architect */
+.architect {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.architect h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--gold);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.architect-text p {
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.architect-text p:first-of-type::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.1em;
+  margin-top: 0.1em;
+}
+
+/* Library */
+.library { max-width: 1100px; }
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.book-card {
+  background: var(--surface);
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  padding: 2rem;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.book-card:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+}
+
+.book-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  margin-bottom: 1rem;
+}
+
+.book-card h3 {
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 0.8rem;
+}
+
+.book-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.book-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* Cathedral AI */
+.cathedral-ai {
+  text-align: center;
+  padding: 6rem 2rem;
+  border-top: 1px solid var(--gold-dim);
+  border-bottom: 1px solid var(--gold-dim);
+}
+
+.cathedral-ai .coming {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.cathedral-ai h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.cathedral-ai p {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+.btn {
+  display: inline-block;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 0.9rem 2.5rem;
+  border: none;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+  background: #d4b35a;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+/* Principles */
+.principles {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.principles .section-header { margin-bottom: 3rem; }
+
+.principle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.principle {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.principle-numeral {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  color: var(--gold);
+  font-weight: 700;
+  line-height: 1;
+  min-width: 60px;
+}
+
+.principle h3 {
+  font-size: 1.3rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.principle p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Subscribe */
+.subscribe {
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.subscribe h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.subscribe p {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Connect */
+.connect {
+  text-align: center;
+  padding: 4rem 2rem;
+  border-top: 1px solid var(--gold-dim);
+}
+
+.connect-links {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.connect-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.connect-links a:hover { color: var(--gold); }
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 2rem 4rem;
+}
+
+footer p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .thinker-grid { grid-template-columns: repeat(2, 1fr); }
+  .book-grid { grid-template-columns: 1fr; }
+  nav ul { display: none; }
+  nav ul.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(10, 10, 18, 0.97);
+    padding: 1.5rem 2rem;
+    gap: 1.2rem;
+    border-bottom: 1px solid var(--gold-dim);
+  }
+  .mobile-toggle { display: flex; }
+  .principle { flex-direction: column; gap: 0.8rem; }
+}
+
+@media (max-width: 500px) {
+  .thinker-grid { grid-template-columns: 1fr; }
+  section { padding: 4rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav id="nav">
+  <a href="#" class="logo">The Cathedral</a>
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="navMenu">
+    <li><a href="#foundations">Foundations</a></li>
+    <li><a href="#architect">Architect</a></li>
+    <li><a href="#library">Library</a></li>
+    <li><a href="#subscribe">Subscribe</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-line"></div>
+  <h1>The Cathedral</h1>
+  <p>Between the headlines and the truth is a signal. This is where you learn to see it.</p>
+</section>
+
+<!-- Signal Quote -->
+<section class="signal-quote reveal">
+  <blockquote>Most people consume information. A few people recognise the architecture underneath it. This is for the second group.</blockquote>
+</section>
+
+<!-- Foundations -->
+<section class="foundations reveal" id="foundations">
+  <div class="section-header">
+    <h2>The Foundations</h2>
+    <p>East and West. Ancient and modern. The patterns were always there.</p>
+  </div>
+  <div class="thinker-grid">
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=800&fit=crop" alt="Marcus Aurelius" loading="lazy">
+      <div class="thinker-info">
+        <h3>Marcus Aurelius</h3>
+        <p>You have power over your mind, not outside events.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?w=600&h=800&fit=crop" alt="Siddhartha Gautama" loading="lazy">
+      <div class="thinker-info">
+        <h3>Siddhartha Gautama</h3>
+        <p>Three things cannot be long hidden. The sun, the moon, and the truth.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=800&fit=crop" alt="Sun Tzu" loading="lazy">
+      <div class="thinker-info">
+        <h3>Sun Tzu</h3>
+        <p>In the midst of chaos, there is also opportunity.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=800&fit=crop" alt="Charlie Munger" loading="lazy">
+      <div class="thinker-info">
+        <h3>Charlie Munger</h3>
+        <p>The big money is not in the buying or selling, but in the waiting.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=600&h=800&fit=crop" alt="Seneca" loading="lazy">
+      <div class="thinker-info">
+        <h3>Seneca</h3>
+        <p>Luck is what happens when preparation meets opportunity.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=600&h=800&fit=crop" alt="Thich Nhat Hanh" loading="lazy">
+      <div class="thinker-info">
+        <h3>Thich Nhat Hanh</h3>
+        <p>The present moment is the only moment available to us.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=600&h=800&fit=crop" alt="Warren Buffett" loading="lazy">
+      <div class="thinker-info">
+        <h3>Warren Buffett</h3>
+        <p>Be fearful when others are greedy. Be greedy when others are fearful.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=800&fit=crop" alt="Miyamoto Musashi" loading="lazy">
+      <div class="thinker-info">
+        <h3>Miyamoto Musashi</h3>
+        <p>There is nothing outside of yourself that can ever enable you to get better.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Architect -->
+<section class="architect reveal" id="architect">
+  <h2>The Architect</h2>
+  <div class="architect-text">
+    <p>Somewhere between the headlines and the truth there is a signal. I write about that signal. Most people scroll through the same information every day and walk away with opinions. A few people look at the same information and see the machinery underneath. The gears turning behind a stock market rally. The human behaviour loop driving a political cycle. The infrastructure pattern that connects a supply chain failure to your grocery bill.</p>
+    <p>I write for the people who want to see the machinery. Pattern recognition applied to money, technology, power, and the human operating system. Not theory. Not academic abstraction. Lived pattern recognition built from military service, four businesses started from nothing, financial independence earned the hard way, and decades of watching people make the same mistakes in different costumes.</p>
+    <p>I do not make predictions. Predictions are ego dressed up as analysis. I identify patterns and let you draw your own conclusions. No guru nonsense. No selling you hope wrapped in a subscription. No telling you what to think. Just the framework for how to see clearly when everyone around you is reacting to noise.</p>
+    <p>The world teaches you to consume information. The cathedral teaches you to decode it.</p>
+  </div>
+</section>
+
+<!-- The Library -->
+<section class="library reveal" id="library">
+  <div class="section-header">
+    <h2>The Library</h2>
+    <p>The books behind the signal.</p>
+  </div>
+  <div class="book-grid">
+    <div class="book-card">
+      <span class="book-badge">Coming Soon</span>
+      <h3>The Pattern Engine</h3>
+      <p>The foundational framework. Twenty core patterns across economics, geopolitics, technology, and human behaviour. Each chapter includes a Pattern Recognition Drill. This is not a book you read. It is a book you train with.</p>
+      <span class="book-price">$5</span>
+    </div>
+    <div class="book-card">
+      <span class="book-badge">Coming Soon</span>
+      <h3>The Money Book</h3>
+      <p>Pattern recognition applied to markets. Signal-based investing, credit spreads, cycle forecasting. Written for the person tired of being told to diversify and wait.</p>
+      <span class="book-price">$20 &ndash; $50</span>
+    </div>
+    <div class="book-card">
+      <span class="book-badge">Coming Soon</span>
+      <h3>The Boy Who Could See</h3>
+      <p>The story of a philosopher-soldier who processed the world differently. Through military service, dental practice, four businesses, and financial independence. A field report from a life spent seeing patterns others were trained to ignore.</p>
+      <span class="book-price">$20 &ndash; $50</span>
+    </div>
+    <div class="book-card">
+      <span class="book-badge">Coming Soon</span>
+      <h3>Life Secrets</h3>
+      <p>Hard-won practical wisdom about discipline, energy, relationships, solitude, health, and daily improvement. Written for the person who wants the operating manual, not the motivation.</p>
+      <span class="book-price">$20 &ndash; $50</span>
+    </div>
+  </div>
+</section>
+
+<!-- Cathedral AI -->
+<section class="cathedral-ai reveal" id="cathedral-ai">
+  <p class="coming">Coming 2026</p>
+  <h2>Cathedral AI</h2>
+  <p>A sovereign artificial intelligence trained on the Pattern Recognition Operating System. Not a chatbot. A thinking partner that helps you decode the world.</p>
+  <a href="#subscribe" class="btn">Join the Waitlist</a>
+</section>
+
+<!-- Principles -->
+<section class="principles reveal">
+  <div class="section-header">
+    <h2>The Principles</h2>
+  </div>
+  <div class="principle-list">
+    <div class="principle">
+      <span class="principle-numeral">I.</span>
+      <div>
+        <h3>See the Pattern</h3>
+        <p>Information is noise until you learn to recognise the architecture underneath it. The same structures repeat across markets, politics, technology, and human behaviour. Train your eye to see them once and you cannot unsee them.</p>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="principle-numeral">II.</span>
+      <div>
+        <h3>Trust the Signal</h3>
+        <p>When the crowd reacts to headlines, the signal is in the data they are not reading. Earnings calls, supply chain movements, policy shifts buried in paragraph twelve. The signal rewards patience and punishes impulse.</p>
+      </div>
+    </div>
+    <div class="principle">
+      <span class="principle-numeral">III.</span>
+      <div>
+        <h3>Build the Cathedral</h3>
+        <p>A cathedral is not built in a quarter. It is built across a lifetime. Every pattern recognised, every decision made from signal instead of noise, every piece of sovereign infrastructure you build compounds. The cathedral is the body of work.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Subscribe -->
+<section class="subscribe reveal" id="subscribe">
+  <h2>Enter the Cathedral</h2>
+  <p>Pattern recognition delivered to your inbox. No noise. No filler. Just the signal.</p>
+  <a href="https://aopinion.substack.com" target="_blank" rel="noopener" class="btn">Subscribe on Substack</a>
+</section>
+
+<!-- Connect -->
+<section class="connect reveal">
+  <div class="connect-links">
+    <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+    <a href="https://aopinion.substack.com" target="_blank" rel="noopener">Substack</a>
+    <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://discord.gg" target="_blank" rel="noopener">Discord</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>Different doors. Same cathedral.</p>
+</footer>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Mobile menu
+document.getElementById('mobileToggle').addEventListener('click', () => {
+  document.getElementById('navMenu').classList.toggle('open');
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('#navMenu a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navMenu').classList.remove('open');
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
