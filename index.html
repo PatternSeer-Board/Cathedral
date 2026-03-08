@@ -671,6 +671,17 @@ footer p {
   </div>
 </section>
 
+<!-- Latest Posts (dynamic from RSS) -->
+<section class="reveal" style="max-width:1100px;">
+  <div class="section-header">
+    <h2>Latest Signal</h2>
+    <p>Recent dispatches from the cathedral.</p>
+  </div>
+  <div id="posts-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+    <!-- Populated dynamically from Substack RSS -->
+  </div>
+</section>
+
 <!-- Cathedral AI -->
 <section class="cathedral-ai reveal" id="cathedral-ai">
   <p class="coming">Coming 2026</p>
@@ -709,6 +720,23 @@ footer p {
   </div>
 </section>
 
+<!-- Email Capture -->
+<section class="email-capture" style="padding:80px 40px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.04),rgba(201,168,76,0.01));">
+  <div class="section-header">
+    <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Stay Connected</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:600;color:var(--text);margin-bottom:12px;">Never Lose the Signal</h2>
+    <p style="font-size:1.05rem;color:var(--text-muted);max-width:500px;margin:0 auto 30px;">Platforms change. Algorithms shift. Your email is the one connection nobody can take away. Join the cathedral directly.</p>
+  </div>
+  <div id="email-form-container" style="max-width:480px;margin:0 auto;">
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <input type="email" id="email-input" placeholder="Your email address" style="flex:1;padding:14px 20px;border-radius:2px;border:1px solid var(--gold-dim);font-family:'Crimson Pro',serif;font-size:15px;outline:none;transition:border 0.3s;background:var(--surface);color:var(--text);" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--gold-dim)'">
+      <button onclick="captureEmail()" class="btn" style="padding:14px 32px;">JOIN</button>
+    </div>
+    <div id="email-status" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></div>
+    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;opacity:0.7;">No spam. No selling your data. Just the signal when it matters.</p>
+  </div>
+</section>
+
 <!-- Subscribe -->
 <section class="subscribe reveal" id="subscribe">
   <h2>Enter the Cathedral</h2>
@@ -717,13 +745,18 @@ footer p {
 </section>
 
 <!-- Connect -->
-<section class="connect reveal">
-  <div class="connect-links">
-    <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank" rel="noopener">Bluesky</a>
-    <a href="https://aopinion.substack.com" target="_blank" rel="noopener">Substack</a>
-    <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://discord.gg" target="_blank" rel="noopener">Discord</a>
-    <a href="https://mastodon.social/@PatternSeer" target="_blank" rel="noopener">Mastodon</a>
+<section class="connect reveal" style="max-width:900px;">
+  <div class="section-header" style="text-align:center;margin-bottom:2.5rem;">
+    <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;">Find the Signal Everywhere</div>
+    <h2 style="font-size:1.8rem;color:var(--text);">Different Doors</h2>
+  </div>
+  <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
+    <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Bluesky</a>
+    <a href="https://mastodon.social/@PatternSeer" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Mastodon</a>
+    <a href="https://aopinion.substack.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Substack</a>
+    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">LinkedIn</a>
+    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Discord</a>
+    <a href="https://www.threads.net/@polymathprotocol" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Threads</a>
   </div>
 </section>
 
@@ -762,6 +795,67 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 reveals.forEach(el => observer.observe(el));
+
+// Auto-pull Substack posts via RSS
+async function loadSubstackPosts() {
+  try {
+    const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://aopinion.substack.com/feed&count=9');
+    const data = await resp.json();
+    if (data.status === 'ok' && data.items) {
+      const grid = document.getElementById('posts-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      data.items.forEach(item => {
+        const date = new Date(item.pubDate).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'});
+        const excerpt = item.description.replace(/<[^>]*>/g, '').substring(0, 180) + '...';
+        const card = document.createElement('a');
+        card.href = item.link;
+        card.target = '_blank';
+        card.className = 'post-card reveal visible';
+        card.style.cssText = 'display:block;background:var(--surface);border:1px solid var(--gold-dim);border-radius:4px;padding:1.5rem;text-decoration:none;transition:border-color 0.3s,transform 0.3s;';
+        card.innerHTML = '<div style="font-size:0.75rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">' + date + '</div><div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--text);font-weight:600;margin-bottom:0.6rem;">' + item.title + '</div><div style="font-size:0.9rem;color:var(--text-muted);line-height:1.5;margin-bottom:0.8rem;">' + excerpt + '</div><span style="font-size:0.8rem;color:var(--gold);letter-spacing:0.08em;">Read on Substack →</span>';
+        card.onmouseover = function() { this.style.borderColor='var(--gold)'; this.style.transform='translateY(-4px)'; };
+        card.onmouseout = function() { this.style.borderColor='var(--gold-dim)'; this.style.transform=''; };
+        grid.appendChild(card);
+      });
+    }
+  } catch(e) { console.log('RSS fetch failed, keeping static posts'); }
+}
+loadSubstackPosts();
+
+// Email capture
+async function captureEmail() {
+  const input = document.getElementById('email-input');
+  const status = document.getElementById('email-status');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    status.style.display = 'block';
+    status.style.color = '#c44';
+    status.textContent = 'Please enter a valid email.';
+    return;
+  }
+  try {
+    const resp = await fetch('https://formspree.io/f/FORMSPREE_ID', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email, source: 'cathedral-website', timestamp: new Date().toISOString()})
+    });
+    if (resp.ok) {
+      status.style.display = 'block';
+      status.style.color = 'var(--gold)';
+      status.textContent = 'Welcome to the cathedral. You are in.';
+      input.value = '';
+    } else {
+      status.style.display = 'block';
+      status.style.color = '#c44';
+      status.textContent = 'Something went wrong. Try again.';
+    }
+  } catch(e) {
+    status.style.display = 'block';
+    status.style.color = '#c44';
+    status.textContent = 'Connection error. Try again.';
+  }
+}
 </script>
 </body>
 </html>
