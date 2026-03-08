@@ -7,27 +7,32 @@
 <meta name="description" content="Pattern recognition applied to money, technology, power, and the human operating system.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Archivo:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #0a0a12;
-  --text: #e8e0d0;
-  --gold: #C9A84C;
-  --gold-dim: rgba(201, 168, 76, 0.3);
-  --text-muted: rgba(232, 224, 208, 0.5);
-  --surface: rgba(232, 224, 208, 0.04);
+  --navy: #0F1923;
+  --navy-mid: #162230;
+  --ivory: #F5F0E8;
+  --parchment: #EDE7DB;
+  --gold: #C8A951;
+  --gold-dim: rgba(200, 169, 81, 0.3);
+  --vermillion: #C1440E;
+  --charcoal: #2A2A2A;
+  --cream-text: #E8E0D4;
+  --surface-dark: rgba(232, 224, 212, 0.06);
+  --surface-light: rgba(15, 25, 35, 0.04);
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-weight: 300;
-  font-size: 18px;
+  background: var(--navy);
+  color: var(--cream-text);
+  font-family: 'Archivo', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 17px;
   line-height: 1.7;
   overflow-x: hidden;
 }
@@ -40,7 +45,7 @@ body::after {
   width: 100%; height: 100%;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.035;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
 }
@@ -58,7 +63,7 @@ nav {
 }
 
 nav.scrolled {
-  background: rgba(10, 10, 18, 0.92);
+  background: rgba(15, 25, 35, 0.95);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--gold-dim);
 }
@@ -80,12 +85,12 @@ nav ul {
 }
 
 nav ul li a {
-  color: var(--text-muted);
+  color: rgba(232, 224, 212, 0.5);
   text-decoration: none;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-family: 'Crimson Pro', serif;
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 400;
   transition: color 0.3s;
 }
@@ -108,13 +113,17 @@ nav ul li a:hover { color: var(--gold); }
   transition: 0.3s;
 }
 
-/* Sections */
-section {
-  padding: 6rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Labels */
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
 }
 
+/* Sections */
 h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
 /* Scroll reveal */
@@ -129,7 +138,7 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
   transform: translateY(0);
 }
 
-/* HERO */
+/* HERO — navy bg */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -139,6 +148,7 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
   text-align: center;
   padding: 2rem;
   position: relative;
+  background: var(--navy);
 }
 
 .hero-line {
@@ -166,8 +176,9 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 .hero p {
   max-width: 600px;
   font-size: 1.15rem;
-  color: var(--text-muted);
+  color: var(--cream-text);
   font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
   opacity: 0;
   animation: fadeUp 1s ease forwards 1.2s;
 }
@@ -177,41 +188,80 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Signal quote */
+/* Ticker — gold bg */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--gold);
+  padding: 0.8rem 0;
+  white-space: nowrap;
+}
+
+.ticker {
+  display: inline-flex;
+  animation: tickerScroll 60s linear infinite;
+}
+
+.ticker-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--navy);
+  padding: 0 2rem;
+}
+
+.ticker-item::after {
+  content: ' \u25C6';
+  color: var(--navy);
+  opacity: 0.4;
+  margin-left: 2rem;
+}
+
+@keyframes tickerScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Signal quote — ivory bg */
 .signal-quote {
   text-align: center;
   padding: 5rem 2rem;
-  border-top: 1px solid var(--gold-dim);
-  border-bottom: 1px solid var(--gold-dim);
+  background: var(--ivory);
 }
 
 .signal-quote blockquote {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1.3rem, 3vw, 1.8rem);
   font-style: italic;
-  color: var(--text);
+  color: var(--charcoal);
   max-width: 800px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
-/* Foundations */
-.foundations { max-width: 1300px; }
+/* Foundations — navy bg */
+.foundations {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  background: var(--navy);
+}
 
-.section-header {
+.foundations .section-header {
   text-align: center;
   margin-bottom: 4rem;
 }
 
-.section-header h2 {
+.foundations .section-header h2 {
   font-size: clamp(2rem, 5vw, 3rem);
   color: var(--gold);
   margin-bottom: 0.8rem;
 }
 
-.section-header p {
-  color: var(--text-muted);
+.foundations .section-header p {
+  color: rgba(232, 224, 212, 0.5);
   font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.1rem;
 }
 
@@ -246,32 +296,48 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
   position: absolute;
   bottom: 0; left: 0; right: 0;
   padding: 2rem 1.2rem 1.2rem;
-  background: linear-gradient(transparent, rgba(10, 10, 18, 0.95));
+  background: linear-gradient(transparent, rgba(15, 25, 35, 0.95));
+}
+
+.thinker-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.3rem;
 }
 
 .thinker-info h3 {
   font-size: 1.1rem;
-  color: var(--gold);
+  color: var(--ivory);
   margin-bottom: 0.4rem;
 }
 
 .thinker-info p {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: rgba(232, 224, 212, 0.5);
   font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
   line-height: 1.4;
 }
 
-/* Architect */
+/* Architect — parchment bg */
 .architect {
+  max-width: 100%;
+  margin: 0;
+  padding: 6rem 2rem;
+  background: var(--parchment);
+}
+
+.architect-inner {
   max-width: 780px;
   margin: 0 auto;
-  padding: 6rem 2rem;
 }
 
 .architect h2 {
   font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--gold);
+  color: var(--navy);
   text-align: center;
   margin-bottom: 3rem;
 }
@@ -279,6 +345,7 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 .architect-text p {
   margin-bottom: 1.5rem;
   text-align: justify;
+  color: var(--charcoal);
 }
 
 .architect-text p:first-of-type::first-letter {
@@ -292,8 +359,36 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
   margin-top: 0.1em;
 }
 
-/* Library */
-.library { max-width: 1100px; }
+/* Library — ivory bg */
+.library {
+  max-width: 100%;
+  margin: 0;
+  padding: 6rem 2rem;
+  background: var(--ivory);
+}
+
+.library-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.library .section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.library .section-header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--navy);
+  margin-bottom: 0.8rem;
+}
+
+.library .section-header p {
+  color: rgba(42, 42, 42, 0.6);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+}
 
 .book-grid {
   display: grid;
@@ -302,8 +397,8 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 }
 
 .book-card {
-  background: var(--surface);
-  border: 1px solid var(--gold-dim);
+  background: white;
+  border: 1px solid rgba(200, 169, 81, 0.2);
   border-radius: 4px;
   padding: 2rem;
   position: relative;
@@ -317,7 +412,8 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
 .book-badge {
   display: inline-block;
-  font-size: 0.7rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold);
@@ -329,34 +425,69 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
 .book-card h3 {
   font-size: 1.4rem;
-  color: var(--text);
+  color: var(--navy);
   margin-bottom: 0.8rem;
 }
 
 .book-card p {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: rgba(42, 42, 42, 0.7);
   margin-bottom: 1.2rem;
   line-height: 1.6;
 }
 
-.book-price {
+.book-number {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
+  font-size: 2rem;
   color: var(--gold);
-  font-weight: 600;
+  font-weight: 700;
+  opacity: 0.3;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
 }
 
-/* Cathedral AI */
+/* Latest Posts — parchment bg */
+.latest-posts {
+  max-width: 100%;
+  margin: 0;
+  padding: 6rem 2rem;
+  background: var(--parchment);
+}
+
+.latest-posts-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.latest-posts .section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.latest-posts .section-header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--navy);
+  margin-bottom: 0.8rem;
+}
+
+.latest-posts .section-header p {
+  color: rgba(42, 42, 42, 0.6);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+}
+
+/* Cathedral AI — navy bg */
 .cathedral-ai {
   text-align: center;
   padding: 6rem 2rem;
-  border-top: 1px solid var(--gold-dim);
-  border-bottom: 1px solid var(--gold-dim);
+  background: var(--navy);
 }
 
 .cathedral-ai .coming {
-  font-size: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
@@ -365,25 +496,27 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
 .cathedral-ai h2 {
   font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--text);
+  color: var(--cream-text);
   margin-bottom: 1.5rem;
 }
 
 .cathedral-ai p {
   max-width: 600px;
   margin: 0 auto 2rem;
-  color: var(--text-muted);
+  color: rgba(232, 224, 212, 0.5);
   font-size: 1.05rem;
 }
 
+/* Buttons */
 .btn {
   display: inline-block;
-  font-family: 'Crimson Pro', serif;
-  font-size: 0.9rem;
+  font-family: 'Archivo', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bg);
-  background: var(--gold);
+  color: white;
+  background: var(--vermillion);
   padding: 0.9rem 2.5rem;
   border: none;
   border-radius: 2px;
@@ -393,29 +526,32 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 }
 
 .btn:hover {
-  background: #d4b35a;
+  background: #d4500f;
   transform: translateY(-2px);
 }
 
-.btn-outline {
-  background: transparent;
-  color: var(--gold);
-  border: 1px solid var(--gold);
-}
-
-.btn-outline:hover {
-  background: var(--gold);
-  color: var(--bg);
-}
-
-/* Principles */
+/* Principles — ivory bg */
 .principles {
+  max-width: 100%;
+  margin: 0;
+  padding: 6rem 2rem;
+  background: var(--ivory);
+}
+
+.principles-inner {
   max-width: 900px;
   margin: 0 auto;
-  padding: 6rem 2rem;
 }
 
-.principles .section-header { margin-bottom: 3rem; }
+.principles .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.principles .section-header h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--navy);
+}
 
 .principle-list {
   display: flex;
@@ -440,70 +576,75 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 
 .principle h3 {
   font-size: 1.3rem;
-  color: var(--text);
+  color: var(--navy);
   margin-bottom: 0.5rem;
 }
 
 .principle p {
-  color: var(--text-muted);
+  color: rgba(42, 42, 42, 0.7);
   font-size: 0.95rem;
 }
 
-/* Subscribe */
+/* Email Capture — navy bg */
+.email-capture {
+  padding: 5rem 2rem;
+  text-align: center;
+  background: var(--navy);
+}
+
+.email-capture h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: var(--cream-text);
+  margin-bottom: 12px;
+}
+
+.email-capture .sub-text {
+  font-size: 1.05rem;
+  color: rgba(232, 224, 212, 0.5);
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+/* Subscribe — parchment bg */
 .subscribe {
   text-align: center;
   padding: 6rem 2rem;
+  background: var(--parchment);
 }
 
 .subscribe h2 {
   font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--gold);
+  color: var(--navy);
   margin-bottom: 1.5rem;
 }
 
 .subscribe p {
-  color: var(--text-muted);
+  color: rgba(42, 42, 42, 0.6);
   margin-bottom: 2rem;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Connect */
+/* Connect — navy bg */
 .connect {
   text-align: center;
   padding: 4rem 2rem;
+  background: var(--navy);
   border-top: 1px solid var(--gold-dim);
 }
-
-.connect-links {
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  flex-wrap: wrap;
-}
-
-.connect-links a {
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.3s;
-}
-
-.connect-links a:hover { color: var(--gold); }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 3rem 2rem 4rem;
+  background: var(--navy);
 }
 
 footer p {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
-  color: var(--text-muted);
+  color: rgba(232, 224, 212, 0.4);
   font-size: 1rem;
 }
 
@@ -517,7 +658,7 @@ footer p {
     flex-direction: column;
     position: absolute;
     top: 100%; left: 0; right: 0;
-    background: rgba(10, 10, 18, 0.97);
+    background: rgba(15, 25, 35, 0.97);
     padding: 1.5rem 2rem;
     gap: 1.2rem;
     border-bottom: 1px solid var(--gold-dim);
@@ -528,7 +669,6 @@ footer p {
 
 @media (max-width: 500px) {
   .thinker-grid { grid-template-columns: 1fr; }
-  section { padding: 4rem 1.2rem; }
 }
 </style>
 </head>
@@ -555,28 +695,49 @@ footer p {
   <p>Between the headlines and the truth is a signal. This is where you learn to see it.</p>
 </section>
 
+<!-- Ticker -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker">
+    <span class="ticker-item">Pattern Recognition</span>
+    <span class="ticker-item">Signal Over Noise</span>
+    <span class="ticker-item">Markets</span>
+    <span class="ticker-item">Geopolitics</span>
+    <span class="ticker-item">Technology</span>
+    <span class="ticker-item">Human Behaviour</span>
+    <span class="ticker-item">Pattern Recognition</span>
+    <span class="ticker-item">Signal Over Noise</span>
+    <span class="ticker-item">Markets</span>
+    <span class="ticker-item">Geopolitics</span>
+    <span class="ticker-item">Technology</span>
+    <span class="ticker-item">Human Behaviour</span>
+  </div>
+</div>
+
 <!-- Signal Quote -->
 <section class="signal-quote reveal">
   <blockquote>Most people consume information. A few people recognise the architecture underneath it. This is for the second group.</blockquote>
 </section>
 
 <!-- Foundations -->
-<section class="foundations reveal" id="foundations">
-  <div class="section-header">
-    <h2>The Foundations</h2>
+<div class="foundations" id="foundations">
+  <div class="section-header reveal">
+    <div class="section-label">The Foundations</div>
+    <h2>Standing on Giants</h2>
     <p>East and West. Ancient and modern. The patterns were always there.</p>
   </div>
-  <div class="thinker-grid">
+  <div class="thinker-grid reveal">
     <div class="thinker-card">
       <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=600&h=800&fit=crop" alt="Marcus Aurelius" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">Meditations &middot; Stoicism</div>
         <h3>Marcus Aurelius</h3>
         <p>You have power over your mind, not outside events.</p>
       </div>
     </div>
     <div class="thinker-card">
-      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&h=800&fit=crop" alt="Sun Tzu" loading="lazy">
+      <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=680&h=1000&fit=crop" alt="Sun Tzu" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">The Art of War &middot; Strategy</div>
         <h3>Sun Tzu</h3>
         <p>In the midst of chaos, there is also opportunity.</p>
       </div>
@@ -584,6 +745,7 @@ footer p {
     <div class="thinker-card">
       <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&h=800&fit=crop" alt="Charlie Munger" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">Mental Models &middot; Capital</div>
         <h3>Charlie Munger</h3>
         <p>The big money is not in the buying or selling, but in the waiting.</p>
       </div>
@@ -591,20 +753,15 @@ footer p {
     <div class="thinker-card">
       <img src="https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=600&h=800&fit=crop" alt="Seneca" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">Letters &middot; Stoicism</div>
         <h3>Seneca</h3>
         <p>Luck is what happens when preparation meets opportunity.</p>
       </div>
     </div>
     <div class="thinker-card">
-      <img src="https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=600&h=800&fit=crop" alt="Thich Nhat Hanh" loading="lazy">
-      <div class="thinker-info">
-        <h3>Thich Nhat Hanh</h3>
-        <p>The present moment is the only moment available to us.</p>
-      </div>
-    </div>
-    <div class="thinker-card">
       <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=600&h=800&fit=crop" alt="Warren Buffett" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">Value Investing &middot; Patience</div>
         <h3>Warren Buffett</h3>
         <p>Be fearful when others are greedy. Be greedy when others are fearful.</p>
       </div>
@@ -612,66 +769,99 @@ footer p {
     <div class="thinker-card">
       <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&h=800&fit=crop" alt="Miyamoto Musashi" loading="lazy">
       <div class="thinker-info">
+        <div class="thinker-tag">The Book of Five Rings &middot; Mastery</div>
         <h3>Miyamoto Musashi</h3>
         <p>There is nothing outside of yourself that can ever enable you to get better.</p>
       </div>
     </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&h=800&fit=crop" alt="Sigmund Freud" loading="lazy">
+      <div class="thinker-info">
+        <div class="thinker-tag">Psychoanalysis &middot; The Unconscious</div>
+        <h3>Sigmund Freud</h3>
+        <p>Out of your vulnerabilities will come your strength.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=600&h=800&fit=crop" alt="Carl Jung" loading="lazy">
+      <div class="thinker-info">
+        <div class="thinker-tag">Archetypes &middot; The Shadow</div>
+        <h3>Carl Jung</h3>
+        <p>Until you make the unconscious conscious, it will direct your life and you will call it fate.</p>
+      </div>
+    </div>
+    <div class="thinker-card">
+      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop" alt="Alfred Adler" loading="lazy">
+      <div class="thinker-info">
+        <div class="thinker-tag">Individual Psychology &middot; Inferiority</div>
+        <h3>Alfred Adler</h3>
+        <p>The only normal people are the ones you don't know very well.</p>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- The Architect -->
 <section class="architect reveal" id="architect">
-  <h2>The Architect</h2>
-  <div class="architect-text">
-    <p>Somewhere between the headlines and the truth there is a signal. I write about that signal. Most people scroll through the same information every day and walk away with opinions. A few people look at the same information and see the machinery underneath. The gears turning behind a stock market rally. The human behaviour loop driving a political cycle. The infrastructure pattern that connects a supply chain failure to your grocery bill.</p>
-    <p>I write for the people who want to see the machinery. Pattern recognition applied to money, technology, power, and the human operating system. Not theory. Not academic abstraction. Lived pattern recognition built from military service, four businesses started from nothing, financial independence earned the hard way, and decades of watching people make the same mistakes in different costumes.</p>
-    <p>I do not make predictions. Predictions are ego dressed up as analysis. I identify patterns and let you draw your own conclusions. No guru nonsense. No selling you hope wrapped in a subscription. No telling you what to think. Just the framework for how to see clearly when everyone around you is reacting to noise.</p>
-    <p>The world teaches you to consume information. The cathedral teaches you to decode it.</p>
+  <div class="architect-inner">
+    <div class="section-label" style="text-align:center;">The Architect</div>
+    <h2>Who Writes This</h2>
+    <div class="architect-text">
+      <p>Somewhere between the headlines and the truth there is a signal. I write about that signal. Most people scroll through the same information every day and walk away with opinions. A few people look at the same information and see the machinery underneath. The gears turning behind a stock market rally. The human behaviour loop driving a political cycle. The infrastructure pattern that connects a supply chain failure to your grocery bill.</p>
+      <p>I write for the people who want to see the machinery. Pattern recognition applied to money, technology, power, and the human operating system. Not theory. Not academic abstraction. Lived pattern recognition built from military service, four businesses started from nothing, financial independence earned the hard way, and decades of watching people make the same mistakes in different costumes.</p>
+      <p>I do not make predictions. Predictions are ego dressed up as analysis. I identify patterns and let you draw your own conclusions. No guru nonsense. No selling you hope wrapped in a subscription. No telling you what to think. Just the framework for how to see clearly when everyone around you is reacting to noise.</p>
+      <p>The world teaches you to consume information. The cathedral teaches you to decode it.</p>
+    </div>
   </div>
 </section>
 
 <!-- The Library -->
 <section class="library reveal" id="library">
-  <div class="section-header">
-    <h2>The Library</h2>
-    <p>The books behind the signal.</p>
-  </div>
-  <div class="book-grid">
-    <div class="book-card">
-      <span class="book-badge">Coming Soon</span>
-      <h3>The Pattern Engine</h3>
-      <p>The foundational framework. Twenty core patterns across economics, geopolitics, technology, and human behaviour. Each chapter includes a Pattern Recognition Drill. This is not a book you read. It is a book you train with.</p>
-      <span class="book-price">$5</span>
+  <div class="library-inner">
+    <div class="section-header">
+      <div class="section-label">The Library</div>
+      <h2>The Books Behind the Signal</h2>
+      <p>Four volumes. One operating system.</p>
     </div>
-    <div class="book-card">
-      <span class="book-badge">Coming Soon</span>
-      <h3>The Money Book</h3>
-      <p>Pattern recognition applied to markets. Signal-based investing, credit spreads, cycle forecasting. Written for the person tired of being told to diversify and wait.</p>
-      <span class="book-price">$20 &ndash; $50</span>
-    </div>
-    <div class="book-card">
-      <span class="book-badge">Coming Soon</span>
-      <h3>The Boy Who Could See</h3>
-      <p>The story of a philosopher-soldier who processed the world differently. Through military service, dental practice, four businesses, and financial independence. A field report from a life spent seeing patterns others were trained to ignore.</p>
-      <span class="book-price">$20 &ndash; $50</span>
-    </div>
-    <div class="book-card">
-      <span class="book-badge">Coming Soon</span>
-      <h3>Life Secrets</h3>
-      <p>Hard-won practical wisdom about discipline, energy, relationships, solitude, health, and daily improvement. Written for the person who wants the operating manual, not the motivation.</p>
-      <span class="book-price">$20 &ndash; $50</span>
+    <div class="book-grid">
+      <div class="book-card">
+        <span class="book-number">01</span>
+        <span class="book-badge">Coming Soon</span>
+        <h3>The Pattern Engine</h3>
+        <p>The foundational framework. Twenty core patterns across economics, geopolitics, technology, and human behaviour. Each chapter includes a Pattern Recognition Drill. This is not a book you read. It is a book you train with.</p>
+      </div>
+      <div class="book-card">
+        <span class="book-number">02</span>
+        <span class="book-badge">Coming Soon</span>
+        <h3>The Money Book</h3>
+        <p>Pattern recognition applied to markets. Signal-based investing, credit spreads, cycle forecasting. Written for the person tired of being told to diversify and wait.</p>
+      </div>
+      <div class="book-card">
+        <span class="book-number">03</span>
+        <span class="book-badge">Coming Soon</span>
+        <h3>The Boy Who Could See</h3>
+        <p>The story of a philosopher-soldier who processed the world differently. Through military service, dental practice, four businesses, and financial independence. A field report from a life spent seeing patterns others were trained to ignore.</p>
+      </div>
+      <div class="book-card">
+        <span class="book-number">04</span>
+        <span class="book-badge">Coming Soon</span>
+        <h3>Life Secrets</h3>
+        <p>Hard-won practical wisdom about discipline, energy, relationships, solitude, health, and daily improvement. Written for the person who wants the operating manual, not the motivation.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Latest Posts (dynamic from RSS) -->
-<section class="reveal" style="max-width:1100px;">
-  <div class="section-header">
-    <h2>Latest Signal</h2>
-    <p>Recent dispatches from the cathedral.</p>
-  </div>
-  <div id="posts-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
-    <!-- Populated dynamically from Substack RSS -->
+<!-- Latest Posts -->
+<section class="latest-posts reveal">
+  <div class="latest-posts-inner">
+    <div class="section-header">
+      <div class="section-label">Latest Signal</div>
+      <h2>Recent Dispatches</h2>
+      <p>From the cathedral.</p>
+    </div>
+    <div id="posts-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;">
+    </div>
   </div>
 </section>
 
@@ -685,71 +875,73 @@ footer p {
 
 <!-- Principles -->
 <section class="principles reveal">
-  <div class="section-header">
-    <h2>The Principles</h2>
-  </div>
-  <div class="principle-list">
-    <div class="principle">
-      <span class="principle-numeral">I.</span>
-      <div>
-        <h3>See the Pattern</h3>
-        <p>Information is noise until you learn to recognise the architecture underneath it. The same structures repeat across markets, politics, technology, and human behaviour. Train your eye to see them once and you cannot unsee them.</p>
-      </div>
+  <div class="principles-inner">
+    <div class="section-header">
+      <div class="section-label">The Principles</div>
+      <h2>Three Laws</h2>
     </div>
-    <div class="principle">
-      <span class="principle-numeral">II.</span>
-      <div>
-        <h3>Trust the Signal</h3>
-        <p>When the crowd reacts to headlines, the signal is in the data they are not reading. Earnings calls, supply chain movements, policy shifts buried in paragraph twelve. The signal rewards patience and punishes impulse.</p>
+    <div class="principle-list">
+      <div class="principle">
+        <span class="principle-numeral">I.</span>
+        <div>
+          <h3>See the Pattern</h3>
+          <p>Information is noise until you learn to recognise the architecture underneath it. The same structures repeat across markets, politics, technology, and human behaviour. Train your eye to see them once and you cannot unsee them.</p>
+        </div>
       </div>
-    </div>
-    <div class="principle">
-      <span class="principle-numeral">III.</span>
-      <div>
-        <h3>Build the Cathedral</h3>
-        <p>A cathedral is not built in a quarter. It is built across a lifetime. Every pattern recognised, every decision made from signal instead of noise, every piece of sovereign infrastructure you build compounds. The cathedral is the body of work.</p>
+      <div class="principle">
+        <span class="principle-numeral">II.</span>
+        <div>
+          <h3>Trust the Signal</h3>
+          <p>When the crowd reacts to headlines, the signal is in the data they are not reading. Earnings calls, supply chain movements, policy shifts buried in paragraph twelve. The signal rewards patience and punishes impulse.</p>
+        </div>
+      </div>
+      <div class="principle">
+        <span class="principle-numeral">III.</span>
+        <div>
+          <h3>Build the Cathedral</h3>
+          <p>A cathedral is not built in a quarter. It is built across a lifetime. Every pattern recognised, every decision made from signal instead of noise, every piece of sovereign infrastructure you build compounds. The cathedral is the body of work.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Email Capture -->
-<section class="email-capture" style="padding:80px 40px;text-align:center;background:linear-gradient(135deg,rgba(201,168,76,0.04),rgba(201,168,76,0.01));">
-  <div class="section-header">
-    <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;">Stay Connected</div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:600;color:var(--text);margin-bottom:12px;">Never Lose the Signal</h2>
-    <p style="font-size:1.05rem;color:var(--text-muted);max-width:500px;margin:0 auto 30px;">Platforms change. Algorithms shift. Your email is the one connection nobody can take away. Join the cathedral directly.</p>
-  </div>
+<section class="email-capture reveal">
+  <div class="section-label">Stay Connected</div>
+  <h2>Never Lose the Signal</h2>
+  <p class="sub-text">Platforms change. Algorithms shift. Your email is the one connection nobody can take away. Join the cathedral directly.</p>
   <div id="email-form-container" style="max-width:480px;margin:0 auto;">
     <div style="display:flex;gap:10px;justify-content:center;">
-      <input type="email" id="email-input" placeholder="Your email address" style="flex:1;padding:14px 20px;border-radius:2px;border:1px solid var(--gold-dim);font-family:'Crimson Pro',serif;font-size:15px;outline:none;transition:border 0.3s;background:var(--surface);color:var(--text);" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--gold-dim)'">
+      <input type="email" id="email-input" placeholder="Your email address" style="flex:1;padding:14px 20px;border-radius:2px;border:1px solid var(--gold-dim);font-family:'Archivo',sans-serif;font-size:15px;outline:none;transition:border 0.3s;background:var(--surface-dark);color:var(--cream-text);" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--gold-dim)'">
       <button onclick="captureEmail()" class="btn" style="padding:14px 32px;">JOIN</button>
     </div>
     <div id="email-status" style="margin-top:12px;font-size:14px;color:var(--gold);display:none;"></div>
-    <p style="font-size:0.8rem;color:var(--text-muted);margin-top:12px;opacity:0.7;">No spam. No selling your data. Just the signal when it matters.</p>
+    <p style="font-size:0.8rem;color:rgba(232,224,212,0.4);margin-top:12px;">No spam. No selling your data. Just the signal when it matters.</p>
   </div>
 </section>
 
 <!-- Subscribe -->
 <section class="subscribe reveal" id="subscribe">
+  <div class="section-label">Enter</div>
   <h2>Enter the Cathedral</h2>
   <p>Pattern recognition delivered to your inbox. No noise. No filler. Just the signal.</p>
   <a href="https://aopinion.substack.com" target="_blank" rel="noopener" class="btn">Subscribe on Substack</a>
 </section>
 
 <!-- Connect -->
-<section class="connect reveal" style="max-width:900px;">
-  <div class="section-header" style="text-align:center;margin-bottom:2.5rem;">
-    <div style="font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.8rem;">Find the Signal Everywhere</div>
-    <h2 style="font-size:1.8rem;color:var(--text);">Different Doors</h2>
+<section class="connect reveal" style="max-width:100%;">
+  <div style="text-align:center;margin-bottom:2.5rem;">
+    <div class="section-label">Find the Signal Everywhere</div>
+    <h2 style="font-size:1.8rem;color:var(--cream-text);">Different Doors</h2>
   </div>
-  <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;">
-    <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Bluesky</a>
-    <a href="https://mastodon.social/@PatternSeer" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Mastodon</a>
-    <a href="https://aopinion.substack.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Substack</a>
-    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">LinkedIn</a>
-    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Discord</a>
-    <a href="https://www.threads.net/@polymathprotocol" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:var(--text-muted);font-size:0.85rem;letter-spacing:0.08em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='var(--text-muted)'">Threads</a>
+  <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;max-width:900px;margin:0 auto;">
+    <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">Bluesky</a>
+    <a href="https://mastodon.social/@PatternSeer" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">Mastodon</a>
+    <a href="https://aopinion.substack.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">Substack</a>
+    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">LinkedIn</a>
+    <a href="#" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">Discord</a>
+    <a href="https://www.threads.net/@polymathprotocol" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:8px;padding:12px 24px;border:1px solid var(--gold-dim);border-radius:2px;text-decoration:none;transition:all 0.3s;color:rgba(232,224,212,0.5);font-family:'JetBrains Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--gold-dim)';this.style.color='rgba(232,224,212,0.5)'">Threads</a>
   </div>
 </section>
 
@@ -770,7 +962,6 @@ document.getElementById('mobileToggle').addEventListener('click', () => {
   document.getElementById('navMenu').classList.toggle('open');
 });
 
-// Close mobile menu on link click
 document.querySelectorAll('#navMenu a').forEach(a => {
   a.addEventListener('click', () => {
     document.getElementById('navMenu').classList.remove('open');
@@ -789,6 +980,26 @@ const observer = new IntersectionObserver((entries) => {
 
 reveals.forEach(el => observer.observe(el));
 
+// Dynamic ticker from RSS
+async function updateTicker() {
+  try {
+    const resp = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://aopinion.substack.com/feed&count=15');
+    const data = await resp.json();
+    if (data.status === 'ok' && data.items) {
+      const ticker = document.getElementById('ticker');
+      ticker.innerHTML = '';
+      const titles = data.items.map(i => i.title);
+      [...titles, ...titles].forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'ticker-item';
+        span.textContent = t;
+        ticker.appendChild(span);
+      });
+    }
+  } catch(e) { console.log('Ticker RSS failed, keeping static titles'); }
+}
+updateTicker();
+
 // Auto-pull Substack posts via RSS
 async function loadSubstackPosts() {
   try {
@@ -805,14 +1016,14 @@ async function loadSubstackPosts() {
         card.href = item.link;
         card.target = '_blank';
         card.className = 'post-card reveal visible';
-        card.style.cssText = 'display:block;background:var(--surface);border:1px solid var(--gold-dim);border-radius:4px;padding:1.5rem;text-decoration:none;transition:border-color 0.3s,transform 0.3s;';
-        card.innerHTML = '<div style="font-size:0.75rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">' + date + '</div><div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--text);font-weight:600;margin-bottom:0.6rem;">' + item.title + '</div><div style="font-size:0.9rem;color:var(--text-muted);line-height:1.5;margin-bottom:0.8rem;">' + excerpt + '</div><span style="font-size:0.8rem;color:var(--gold);letter-spacing:0.08em;">Read on Substack →</span>';
+        card.style.cssText = 'display:block;background:white;border:1px solid rgba(200,169,81,0.2);border-radius:4px;padding:1.5rem;text-decoration:none;transition:border-color 0.3s,transform 0.3s;';
+        card.innerHTML = '<div style="font-family:JetBrains Mono,monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;">' + date + '</div><div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--navy);font-weight:600;margin-bottom:0.6rem;">' + item.title + '</div><div style="font-size:0.9rem;color:rgba(42,42,42,0.7);line-height:1.5;margin-bottom:0.8rem;">' + excerpt + '</div><span style="font-size:0.8rem;color:var(--vermillion);font-weight:500;letter-spacing:0.05em;">Read on Substack \u2192</span>';
         card.onmouseover = function() { this.style.borderColor='var(--gold)'; this.style.transform='translateY(-4px)'; };
-        card.onmouseout = function() { this.style.borderColor='var(--gold-dim)'; this.style.transform=''; };
+        card.onmouseout = function() { this.style.borderColor='rgba(200,169,81,0.2)'; this.style.transform=''; };
         grid.appendChild(card);
       });
     }
-  } catch(e) { console.log('RSS fetch failed, keeping static posts'); }
+  } catch(e) { console.log('RSS fetch failed'); }
 }
 loadSubstackPosts();
 
@@ -823,7 +1034,7 @@ async function captureEmail() {
   const email = input.value.trim();
   if (!email || !email.includes('@')) {
     status.style.display = 'block';
-    status.style.color = '#c44';
+    status.style.color = 'var(--vermillion)';
     status.textContent = 'Please enter a valid email.';
     return;
   }
@@ -840,12 +1051,12 @@ async function captureEmail() {
       input.value = '';
     } else {
       status.style.display = 'block';
-      status.style.color = '#c44';
+      status.style.color = 'var(--vermillion)';
       status.textContent = 'Something went wrong. Try again.';
     }
   } catch(e) {
     status.style.display = 'block';
-    status.style.color = '#c44';
+    status.style.color = 'var(--vermillion)';
     status.textContent = 'Connection error. Try again.';
   }
 }
