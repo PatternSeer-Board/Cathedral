@@ -126,14 +126,13 @@ nav.stuck .n-links a{color:var(--ink2)}
 .mag-cta a{display:inline-block;padding:16px 44px;background:var(--navy);color:var(--ivory);font-family:'Fira Code',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;border-radius:4px;transition:0.3s}
 .mag-cta a:hover{background:var(--verm);color:#fff;transform:translateY(-2px);box-shadow:0 8px 24px rgba(193,68,14,0.25)}
 
-/* BOOKS — HORIZONTAL SCROLL */
-.bks{padding:100px 0 100px 5%;background:var(--ivory);overflow:hidden}
-.bks-head{margin-bottom:40px}
+/* BOOKS — 2x2 VISIBLE GRID */
+.bks{padding:100px 5%;background:var(--ivory)}
+.bks-head{margin-bottom:40px;max-width:1300px;margin-left:auto;margin-right:auto}
 .bks-head .bl{font-family:'Fira Code',monospace;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .bks-head h2{font-family:'Bodoni Moda',serif;font-size:clamp(28px,4vw,44px);font-weight:400;color:var(--navy)}
-.bk-scroll{display:flex;gap:16px;overflow-x:auto;padding-bottom:24px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.bk-scroll::-webkit-scrollbar{display:none}
-.bk{flex:0 0 clamp(280px,30vw,360px);background:var(--navy);padding:40px 32px;border-radius:6px;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:space-between;min-height:440px;transition:0.4s}
+.bk-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1300px;margin:0 auto}
+.bk{background:var(--navy);padding:40px 32px;border-radius:6px;display:flex;flex-direction:column;justify-content:space-between;min-height:380px;transition:0.4s}
 .bk:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(18,41,63,0.2)}
 .bk-num{font-family:'Bodoni Moda',serif;font-size:80px;font-weight:300;color:rgba(200,169,81,0.1);line-height:0.85}
 .bk-badge{font-family:'Fira Code',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin:16px 0}
@@ -204,7 +203,8 @@ footer p{font-family:'Bodoni Moda',serif;font-size:13px;font-style:italic;color:
 }
 @media(max-width:600px){
   .bento{grid-template-columns:1fr}.bento .tc:nth-child(1),.bento .tc:nth-child(6){grid-column:span 1}
-  .bk{flex:0 0 85vw}
+  .bk-grid{grid-template-columns:1fr}
+  .bk{flex:none}
 }
 </style>
 </head>
@@ -346,7 +346,7 @@ footer p{font-family:'Bodoni Moda',serif;font-size:13px;font-style:italic;color:
     <div class="bl rv">The Library</div>
     <h2 class="rv">Four Books. One Framework.</h2>
   </div>
-  <div class="bk-scroll">
+  <div class="bk-grid">
     <div class="bk rv"><div class="bk-num">01</div><div class="bk-badge">Coming Soon</div><h3>The Pattern Engine</h3><p>Twenty core patterns across economics, geopolitics, technology, and human behaviour. Each chapter includes a Pattern Recognition Drill. This is not a book you read. It is a book you train with.</p><div class="bk-price">$5</div></div>
     <div class="bk rv"><div class="bk-num">02</div><div class="bk-badge">Coming Soon</div><h3>The Money Book</h3><p>Signal-based investing. Credit spreads. Cycle forecasting. Written for the person tired of being told to diversify and wait.</p><div class="bk-price">$20–50</div></div>
     <div class="bk rv"><div class="bk-num">03</div><div class="bk-badge">Coming Soon</div><h3>The Boy Who Could See</h3><p>A philosopher-soldier who processed the world differently. A field report from a life spent seeing patterns others ignore.</p><div class="bk-price">$20–50</div></div>
@@ -412,13 +412,7 @@ const rvs=document.querySelectorAll('.rv');
 const obs=new IntersectionObserver(es=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('vis'),i*50)})},{threshold:0.06,rootMargin:'0px 0px -40px 0px'});
 rvs.forEach(el=>obs.observe(el));
 
-// Book horizontal scroll drag
-const bs=document.querySelector('.bk-scroll');
-if(bs){let d=false,sx,sl;
-bs.addEventListener('mousedown',e=>{d=true;bs.style.cursor='grabbing';sx=e.pageX-bs.offsetLeft;sl=bs.scrollLeft});
-bs.addEventListener('mouseleave',()=>{d=false;bs.style.cursor='grab'});
-bs.addEventListener('mouseup',()=>{d=false;bs.style.cursor='grab'});
-bs.addEventListener('mousemove',e=>{if(!d)return;e.preventDefault();bs.scrollLeft=sl-(e.pageX-bs.offsetLeft-sx)*1.5});}
+// Books now in grid, no drag needed
 
 // Dynamic posts from Substack RSS — latest 4, magazine layout
 async function lp(){try{
