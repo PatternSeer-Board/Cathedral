@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 
 SITE_DIR = os.path.expanduser("~/cathedral-website")
 INDEX = os.path.join(SITE_DIR, "index.html")
-FEED_URL = "https://aopinion.substack.com/feed"
+FEED_URL = "https://apatternseer.substack.com/feed"
 
 def fetch_posts():
     try:

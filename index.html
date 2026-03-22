@@ -270,37 +270,37 @@ footer p{font-family:'Bodoni Moda',serif;font-size:13px;font-style:italic;color:
     <div class="mh-sub rv">Pattern recognition applied to what is happening right now. Free to read.</div>
   </div>
   <div class="mag-grid" id="pgrid">
-<a href="https://aopinion.substack.com/p/when-fear-makes-you-rich" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/when-fear-makes-you-rich" target="_blank" class="mc reveal">
 <div class="mc-date">Tue, 10 Mar 2026</div>
 <div class="mc-title">When Fear Makes You Rich</div>
 <div class="mc-ex">Warren Buffett said be greedy when others are fearful.</div>
 <span class="mc-read">Read on Substack</span>
 </a>
-<a href="https://aopinion.substack.com/p/markets-move-on-presidential-whispers" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/markets-move-on-presidential-whispers" target="_blank" class="mc reveal">
 <div class="mc-date">Tue, 10 Mar 2026</div>
 <div class="mc-title">Markets Move on Presidential Whispers</div>
 <div class="mc-ex">Defense contractors rallied Tuesday morning when Donald Trump suggested Operation Epic Fury would end soon.</div>
 <span class="mc-read">Read on Substack</span>
 </a>
-<a href="https://aopinion.substack.com/p/were-all-different-but-pretend-were" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/were-all-different-but-pretend-were" target="_blank" class="mc reveal">
 <div class="mc-date">Tue, 10 Mar 2026</div>
 <div class="mc-title">We're All Different But Pretend We're The Same</div>
 <div class="mc-ex">Lions don't play with beavers.</div>
 <span class="mc-read">Read on Substack</span>
 </a>
-<a href="https://aopinion.substack.com/p/the-team-jersey-you-never-chose-to" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/the-team-jersey-you-never-chose-to" target="_blank" class="mc reveal">
 <div class="mc-date">Mon, 09 Mar 2026</div>
 <div class="mc-title">The Team Jersey You Never Chose to Wear</div>
 <div class="mc-ex">The Iranian female soccer team fears for their safety because missiles fly over Tehran.</div>
 <span class="mc-read">Read on Substack</span>
 </a>
-<a href="https://aopinion.substack.com/p/when-missiles-fly-food-gets-expensive" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/when-missiles-fly-food-gets-expensive" target="_blank" class="mc reveal">
 <div class="mc-date">Mon, 09 Mar 2026</div>
 <div class="mc-title">When Missiles Fly Food Gets Expensive</div>
 <div class="mc-ex">Missiles fly in Tehran and people get poorer in Lagos.</div>
 <span class="mc-read">Read on Substack</span>
 </a>
-<a href="https://aopinion.substack.com/p/tech-and-policy-shaping-modern-warfare" target="_blank" class="mc reveal">
+<a href="https://apatternseer.substack.com/p/tech-and-policy-shaping-modern-warfare" target="_blank" class="mc reveal">
 <div class="mc-date">Sat, 07 Mar 2026</div>
 <div class="mc-title">Tech and Policy: Shaping Modern Warfare Beyond Likability</div>
 <div class="mc-ex">Major companies are replacing customer service workers with AI, making businesses more efficient but also cutting jobs.</div>
@@ -396,7 +396,7 @@ footer p{font-family:'Bodoni Moda',serif;font-size:13px;font-style:italic;color:
 <section class="sub">
   <h2 class="rv">Start Seeing</h2>
   <p class="rv">Weekly pattern recognition delivered to your inbox.</p>
-  <a href="https://aopinion.substack.com" target="_blank" class="btn-v rv">Subscribe on Substack</a>
+  <a href="https://apatternseer.substack.com" target="_blank" class="btn-v rv">Subscribe on Substack</a>
 </section>
 
 <!-- SOCIAL -->
@@ -405,7 +405,7 @@ footer p{font-family:'Bodoni Moda',serif;font-size:13px;font-style:italic;color:
   <div class="soc-r">
     <a href="https://bsky.app/profile/patternseer.bsky.social" target="_blank">Bluesky</a>
     <a href="https://mastodon.social/@PatternSeer" target="_blank">Mastodon</a>
-    <a href="https://aopinion.substack.com" target="_blank">Substack</a>
+    <a href="https://apatternseer.substack.com" target="_blank">Substack</a>
     <a href="#" target="_blank">LinkedIn</a>
     <a href="#" target="_blank">Discord</a>
     <a href="https://www.threads.net/@polymathprotocol" target="_blank">Threads</a>
@@ -428,7 +428,7 @@ rvs.forEach(el=>obs.observe(el));
 
 // Dynamic posts from Substack RSS — latest 4, magazine layout
 async function lp(){try{
-  const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faopinion.substack.com%2Ffeed&count=4');
+  const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fapatternseer.substack.com%2Ffeed&count=4');
   const d=await r.json();
   if(d.status==='ok'&&d.items&&d.items.length>0){
     const g=document.getElementById('pgrid');g.innerHTML='';
@@ -445,7 +445,7 @@ lp();
 
 // Dynamic ticker
 async function lt(){try{
-  const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Faopinion.substack.com%2Ffeed&count=12');
+  const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fapatternseer.substack.com%2Ffeed&count=12');
   const d=await r.json();
   if(d.status==='ok'&&d.items){
     const t=document.getElementById('ticker');t.innerHTML='';
